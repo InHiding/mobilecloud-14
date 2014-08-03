@@ -17,6 +17,8 @@
  */
 package org.magnum.dataup;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 import javax.servlet.MultipartConfigElement;
 
 import org.springframework.boot.SpringApplication;
