@@ -54,7 +54,7 @@ public class VideoSvcController {
 	@RequestMapping(value=VideoSvcApi.VIDEO_DATA_PATH, method=RequestMethod.POST)
 	public @ResponseBody VideoStatus setVideoData(@PathVariable("id") long id, @RequestParam("data") MultipartFile videoData) throws IOException {
 		Video video = videos.get(id);
-		if (video == null) throw new VideoNotFoundException("Cannot findo video with id:" +id);
+		if (video == null) throw new VideoNotFoundException("Cannot find video with id:" +id);
 		
 		videoDataMgr.saveVideoData(video, videoData.getInputStream());
 		
@@ -64,7 +64,7 @@ public class VideoSvcController {
 	@RequestMapping(value=VideoSvcApi.VIDEO_DATA_PATH, method=RequestMethod.GET)
 	public void getData(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
 		Video video = videos.get(id);
-		if (video == null) throw new VideoNotFoundException("Cannot findo video with id:" +id);
+		if (video == null) throw new VideoNotFoundException("Cannot find video with id:" +id);
 		
 		videoDataMgr.copyVideoData(video, response.getOutputStream());
 	}
