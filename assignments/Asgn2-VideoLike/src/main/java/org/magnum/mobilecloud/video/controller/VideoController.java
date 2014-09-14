@@ -15,25 +15,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 class VideoController {
 
 	@Autowired
 	VideoRepository repository;
 	
 	@RequestMapping(value = VideoSvcApi.VIDEO_SVC_PATH, method = RequestMethod.GET)
-    public @ResponseBody Collection<Video> getVideos(){
+    public Collection<Video> getVideos(){
         return (Collection<Video>) repository.findAll();
     }
 	
 	@RequestMapping(value = VideoSvcApi.VIDEO_SVC_PATH, method = RequestMethod.POST)
-    public @ResponseBody Video addVideo(@RequestBody Video v){
+    public Video addVideo(@RequestBody Video v){
         return repository.save(v);
     }
 	
 	@RequestMapping(value = VideoSvcApi.VIDEO_SVC_PATH+ "/{id}", method = RequestMethod.GET)
-    public @ResponseBody Video getVideo(@PathVariable("id") long id){
+    public Video getVideo(@PathVariable("id") long id){
         return repository.findOne(id);
     }
 	
@@ -79,7 +80,7 @@ class VideoController {
 	}
 	
 	@RequestMapping(value = VideoSvcApi.VIDEO_SVC_PATH + "/{id}/likedby", method = RequestMethod.GET)
-	public @ResponseBody Collection<String> likedVideo(@PathVariable("id") long id) {
+	public Collection<String> likedVideo(@PathVariable("id") long id) {
 		Video v = repository.findOne(id);
 
 		return v.getLikedUsers();
